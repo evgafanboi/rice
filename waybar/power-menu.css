@@ -1,0 +1,63 @@
+window {
+    font-family: "Hack";
+    font-size: 14px;
+    background-color: rgba(46, 52, 64, 0.9);
+    border: 2px solid rgba(76, 86, 106, 0.9);
+    border-radius: 10px;
+    animation: fadeIn 0.1s ease-in-out;
+}
+
+#input {
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 2px solid #4C566A;
+    background-color: rgba(59, 66, 82, 0.9);
+    color: #D8DEE9;
+}
+
+#inner-box {
+    margin: 5px;
+    background-color: transparent;
+}
+
+#outer-box {
+    margin: 5px;
+    background-color: transparent;
+}
+
+#scroll {
+    margin: 5px;
+}
+
+#text {
+    margin: 5px;
+    color: #D8DEE9;
+    transition: all 0.2s ease-in-out;
+}
+
+#entry {
+    padding: 5px;
+    transition: all 0.2s ease-in-out;
+}
+
+#entry:selected {
+    background-color: rgba(94, 129, 172, 0.8);
+    border-radius: 5px;
+    transform: translateX(5px);
+}
+
+#text:selected {
+    color: #ECEFF4;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
