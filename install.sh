@@ -7,7 +7,7 @@ RED='\033[0;31m'
 NC='\033[0m' # No Color
 
 # Available components
-COMPONENTS=("kitty" "starship" "sway" "waybar")
+COMPONENTS=("kitty" "starship" "sway" "waybar" "alacritty")
 
 # Function to print usage
 print_usage() {
@@ -46,6 +46,18 @@ install_kitty() {
     cp -r kitty/* "$HOME/.config/kitty/"
     
     echo -e "${GREEN}Kitty configuration installed${NC}"
+}
+
+install_alacritty() {
+    echo -e "${BLUE}Installing alacritty.toml...${NC}"
+
+    check_command alacritty || return 1
+
+    mkdir -p "$HOME/.config/alacritty"
+
+    cp -r alacritty/* "$HOME/.config/alacritty/"
+
+    echo -e "${GREEN}Alacritty configuration installed${NC}"
 }
 
 # Function to install starship configuration
@@ -129,7 +141,11 @@ done
 
 # Show confirmation prompt
 echo -e "${BLUE}The following configs will be installed:${NC}"
+
 printf "  - %s\n" "${components[@]}"
+
+echo -e "${BLUE}Run ./install.sh --help for custom components docs${NC}"
+
 echo
 read -p "Proceed with installation? [y/N] " -n 1 -r
 echo    # New line after response
@@ -154,6 +170,9 @@ for component in "${components[@]}"; do
         waybar)
             install_waybar
             ;;
+	kitty)
+	    install_alacritty
+	    ;;
         *)
             print_error_usage "Unrecognized component '$component'"
             ;;

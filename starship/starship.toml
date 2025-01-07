@@ -1,31 +1,30 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-[ ](fg:color_fg0 bg:color_bg0)\
-[](fg:color_bg0 bg:color_aqua)\
 $username\
-[](bg:color_bg3 fg:color_aqua)\
+[░▒▓](fg:color_bg3 bg:color_none)\
 $directory\
-[](fg:color_bg3 bg:color_bg3)\
+[](fg:color_bg3 bg:color_none)\
 $git_branch\
-[](fg:color_bg3)\
 $character"""
 
 palette = 'nord'
 
 [palettes.nord]
 color_fg0 = '#D8DEE9'  # Snow white
-color_bg0 = '#2E3440'  # Dark gray
+color_bg0 = '#585555'  # Dark gray
 color_bg1 = '#3B4252'  # Medium gray
-color_bg3 = '#4C566A'  # Darker gray
+color_bg3 = '#21130d'  # Darker gray
 color_blue = '#88C0D0'  # Light blue
 color_aqua = '#81A1C1'  # Aqua blue
-color_green = '#c1932d'  # Prompt symbol color
+color_green = '#c1932d'  # Prompt color
 color_orange = '#D19A66'  # Light orange
 color_purple = '#B48EAD'  # Light purple
 color_red = '#BF616A'  # Light red
 color_yellow = '#EBCB8B'  # Light yellow
-color_uname = '#1A1F24'  # Uname color
+color_uname = '#fbf8e1'  # Uname color
+color_none = '#81a1c100' # transparent
+color_corn = '#fdf492' # oh sweet corn
 
 [os]
 disabled = true
@@ -57,26 +56,26 @@ Pop = ""
 
 [username]
 show_always = true
-style_user = "bg:color_aqua fg:color_bg0"
+style_user = "bold bg:color_none fg:color_uname"
 format = '[ $user ]($style)'
 
 [directory]
 style = "bg:color_bg3 fg:color_fg0"
 format = "[ $path ]($style)"
-truncation_length = 3
-truncation_symbol = "…/"
+truncation_length = 4
+truncation_symbol = "/../"
 
 [directory.substitutions]
 "Documents" = "\uf15c"
-"Downloads" = "\uf409"
+"Downloads" = " "
 "Music" = "\uec1b"
 "Pictures" = "\uf03e"
 format = '[$symbol]($style)'
 
 [git_branch]
 symbol = ""
-style = "bg:color_aqua"
-format = '[[ $symbol $branch ](fg:color_fg0 bg:color_aqua)]($style)'
+style = "bg:color_none"
+format = '[[ $symbol $branch ](fg:color_aqua bg:color_none)]($style)'
 
 [git_status]
 style = "bg:color_aqua"

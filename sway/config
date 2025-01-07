@@ -3,13 +3,36 @@ include colorscheme
 # gap between windows
 gaps inner 10
 gaps outer 1
+
+corner_radius 10
+
+#blurriness
+blur enable
+blur_passes 2
+blur_radius 2
+blur_saturation 1.3
+
+#shadow
+shadows enable
+shadow_blur_radius 10
+shadow_color #000000
+shadow_offset 3 3
+
+#waybar
+layer_effects "waybar" blur enable; shadows enable
+
 set $mod Mod1
+
+#font 
+font pango:Hack 11
 
 #xwayland disable
 for_window [shell="xwayland"] title_format "<XWayland> %title"
 
+#exec fcitx5
 
-# Replace with this if you want native screen locking
+
+bindsym Mod4+q exec chromium
 exec swayidle -w \
     timeout 300 'swaylock' \
     timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
@@ -17,11 +40,10 @@ exec swayidle -w \
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
+#exec --no-startup-id nm-applet
 
 bindsym XF86MonBrightnessUp exec brightnessctl set +10%
 bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
-
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
@@ -33,16 +55,34 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 #floating_modifier $mod
 
 # start a terminal
-bindsym --to-code $mod+Return exec kitty
-
+bindsym --to-code $mod+Return exec alacritty 
 input "type:keyboard" {
 	xkb_options "ctrl:nocaps"
 }
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# start dmenu (or use bemenu idk)
-bindsym $mod+d exec --no-startup-id dmenu-run
+# start bemenu 
+set $menu bemenu-run -i \
+    --fn "Hack 16" \
+    --nb "#2E3440" \
+    --nf "#D8DEE9" \
+    --sb "#5E81AC" \
+    --sf "#ECEFF4" \
+    --tb "#3B4252" \
+    --tf "#D8DEE9" \
+    --hb "#81A1C1" \
+    --hf "#ECEFF4" \
+    --fb "#2E3440" \
+    --ff "#D8DEE9" \
+    --border-radius 10\
+    --margin 5\
+    --accept-single \
+    --no-overlap \
+    --fixed-height \
+    --ignorecase
+
+bindsym $mod+d exec $menu 
 
 # change focus
 bindsym $mod+h focus left
@@ -56,6 +96,7 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
+bindsym $mod+Tab workspace back_and_forth
 # split in horizontal orientation
 bindsym $mod+semicolon split h 
 
@@ -121,16 +162,19 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
-
-# restart sway
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-
-# exit sway
+# exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exit
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode mod+r
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
         bindsym h resize shrink width 10 px or 10 ppt
         bindsym k resize grow height 10 px or 10 ppt
         bindsym j resize shrink height 10 px or 10 ppt
@@ -138,8 +182,8 @@ mode "resize" {
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Up resize grow height 10 px or 10 ppt
-        bindsym Down resize shrink height 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
         bindsym Right resize grow width 10 px or 10 ppt
 
         # back to normal: Enter or Escape or $mod+r
@@ -160,18 +204,26 @@ bindsym --to-code $mod+Shift+s exec sway-screenshot -m region --clipboard-only >
 ###maximilism
 # Basic color configuration using the Base16 variables for windows and borders.
 # Property Name         Border  BG      Text    Indicator Child Border
-client.focused          $base00 $base00 $base00 $base00 $base00
-client.focused_inactive $base00 $base00 $base05 $base00 $base00
+client.focused          #E5E9D3 #E5E9D3 $base00 #E5E9D3 #E5E9D3
+client.focused_inactive $base00 $base00 $base05 $base00 $base00 
 client.unfocused        $base00 $base00 $base05 $base00 $base00
-client.urgent           $base08 $base08 $base00 $base08 $base08
+client.urgent           $base0F $base0F $base00 $base0F $base0F
 client.placeholder      $base00 $base00 $base05 $base00 $base00
 client.background       $base07
 
 # Add transparency rules for specific applications
-for_window [app_id="kitty"] opacity 0.95
+#for_window [app_id="kitty"] opacity 0.75
 
 # Change wallpaper on startup and loop
 exec ~/.config/sway/wallpaper.sh --loop
 
 # Hotkey to change wallpaper instantly
 bindsym $mod+Shift+w exec ~/.config/sway/wallpaper.sh
+
+# i-bus
+exec_always {
+    ibus-daemon -drx
+    export GTK_IM_MODULE=ibus
+    export XMODIFIERS=@im=ibus
+    export QT_IM_MODULE=ibus
+}
