@@ -1,0 +1,56 @@
+[window]
+
+opacity = 0.7
+
+padding.x = 10
+padding.y = 10
+
+decorations = "Full"
+decorations_theme_variant = "Light" # "Dark"
+
+[font]
+size = 18.0
+
+[font.bold]
+family = "Hack"
+style = "Bold"
+
+[font.bold_italic]
+family = "Hack"
+style = "Bold Italic"
+
+[font.italic]
+family = "Hack"
+style = "Italic"
+
+[font.normal]
+family = "Hack"
+style = "Regular"
+
+[colors]
+# Default colors
+[colors.primary]
+background = "#000000"
+foreground = "#ffffff"
+
+# Normal colors
+[colors.normal]
+black = "#000000"
+red = "#ff0000"
+green = "#00ff00"
+yellow = "#ffff00"
+blue = "#0000ff"
+magenta = "#ff00ff"
+cyan = "#00ffff"
+white = "#ffffff"
+
+# Bright colors
+[colors.bright]
+black = "#7f7f7f"
+red = "#ff7f7f"
+green = "#7fff7f"
+yellow = "#ffff7f"
+blue = "#7f7fff"
+magenta = "#ff7fff"
+cyan = "#7fffff"
+white = "#ffffff"
