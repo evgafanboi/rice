@@ -170,7 +170,7 @@ for component in "${components[@]}"; do
         waybar)
             install_waybar
             ;;
-	kitty)
+	alacritty)
 	    install_alacritty
 	    ;;
         *)
